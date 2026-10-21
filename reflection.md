@@ -4,13 +4,20 @@
 
 **a. Initial design**
 
-- Briefly describe your initial UML design.
-- What classes did you include, and what responsibilities did you assign to each?
+- User should be able to:
+    - add a pet and type of pet
+    - schedule different tasks
+    - see the generated schedule for the day
+
+- Classes
+    - Owner - responsible for the pet
+    - Pet - holds pet name, species, and their owner, responsible for tasks
+    - Task - holds a decription, a time constraint, and wheter the task repeats, responsible for completion
+    - Scheduler - holds lists of scheduled tasks 
 
 **b. Design changes**
 
-- Did your design change during implementation?
-- If yes, describe at least one change and why you made it.
+- One change I made was the boolean repeated. It was good to show that task coud repeat but it was better to use an interval or frequency to show when it repeats.
 
 ---
 

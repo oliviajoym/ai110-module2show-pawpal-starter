@@ -1,0 +1,70 @@
+classDiagram
+    class Owner {
+        +String ownerId
+        +String name
+        +List~Pet~ pets
+        +addPet(pet: Pet)
+        +getAllTasks() List~Task~
+    }
+
+    class Pet {
+        +String petId
+        +String name
+        +String species
+        +Owner owner
+        +List~Task~ tasks
+        +addTask(task: Task)
+    }
+
+    class Task {
+        +String taskId
+        +String description
+        +TimeOfDay timeConstraint
+        +boolean repeated
+        +Frequency frequency
+        +boolean ownerPresenceRequired
+        +Pet pet
+        +TaskStatus status
+        +Date nextDueDate
+        +markComplete()
+        +computeNextOccurrence() Date
+        +isOverdue() boolean
+    }
+
+    class Scheduler {
+        +Owner owner
+        +getAllTasks() List~Task~
+        +scheduleTask(task: Task)
+        +rescheduleRepeatedTasks()
+        +getTasksByTime(time: TimeOfDay) List~Task~
+        +getTasksRequiringOwner() List~Task~
+        +getOverdueTasks() List~Task~
+    }
+
+    class TimeOfDay {
+        <<enumeration>>
+        MORNING
+        AFTERNOON
+        EVENING
+    }
+
+    class Frequency {
+        <<enumeration>>
+        DAILY
+        WEEKLY
+        MONTHLY
+    }
+
+    class TaskStatus {
+        <<enumeration>>
+        PENDING
+        COMPLETED
+        MISSED
+    }
+
+    Owner "1" --> "0..*" Pet : owns
+    Pet "1" --> "0..*" Task : has
+    Scheduler "1" --> "1" Owner : reads from
+    Task --> TimeOfDay : uses
+    Task --> Frequency : uses
+    Task --> TaskStatus : uses
