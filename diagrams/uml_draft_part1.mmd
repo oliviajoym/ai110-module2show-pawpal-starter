@@ -1,0 +1,46 @@
+
+classDiagram
+    class Owner {
+        +String ownerId
+        +String name
+        +Pet pet
+    }
+
+    class Pet {
+        +String petId
+        +String name
+        +String species
+        +String ownerId
+        +List~Task~ tasks
+        +addTask(task: Task)
+    }
+
+    class Task {
+        +String taskId
+        +String description
+        +TimeOfDay timeConstraint
+        +boolean repeated
+        +boolean ownerPresenceRequired
+        +String petId
+        +markComplete()
+    }
+
+    class Scheduler {
+        +List~Task~ scheduledTasks
+        +scheduleTask(task: Task)
+        +rescheduleRepeatedTasks()
+        +getTasksByTime(time: TimeOfDay)
+        +getTasksRequiringOwner()
+    }
+
+    class TimeOfDay {
+        <<enumeration>>
+        MORNING
+        AFTERNOON
+        EVENING
+    }
+
+    Owner "1" --> "0..1" Pet : owns
+    Pet "1" --> "many" Task : has
+    Scheduler "1" --> "many" Task : manages
+    Task --> TimeOfDay : uses
